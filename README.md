@@ -4,14 +4,23 @@ EasyEDAでNFC基板名刺を設計し、JLCPCBのMulticolor SilkscreenとPCBA向
 
 ## 使い方
 
-`kiban-meishi` フォルダを `~/.codex/skills/` に配置し、Codexから次のように指定します。
+`kiban-meishi` フォルダを `~/.codex/skills/` に配置し、**基板名刺の表面に印刷したい画像をプロンプトと一緒に添付**し、Codexから次のように指定します。画像内の文字やレイアウトも印刷素材として扱います。
 
 ```text
-$kiban-meishi ST25TN01K-AFH5、青0603 LED、100Ω抵抗の構成で、
+$kiban-meishi 添付画像を基板名刺の表面にMulticolor Silkscreenで印刷してください。
+ST25TN01K-AFH5、青0603 LED、100Ω抵抗の構成で、
 厚さ0.6 mm・四隅R2・表面カラー印刷のNFC名刺を20枚設計し、発注データを準備し、JLCPCBで0.6 mm・Multicolor Silkscreen・20枚を入力して。
 ```
 
 入口は [SKILL.md](kiban-meishi/SKILL.md)。ライブ操作にはEasyEDAと接続用API／ブラウザ操作環境、発注にはJLCPCBアカウントが必要です。ドキュメントの参照とCSV／ZIP検査スクリプトは単独でも利用できます。
+
+## 添付画像のサンプル
+
+今回使用した画像を、提供者の許可を得てサンプルとして掲載しています。[サンプル画像を開く](kiban-meishi/assets/sample-business-card.png)から保存し、上記プロンプトと一緒に添付できます。
+
+![NFC基板名刺の表面画像サンプル](kiban-meishi/assets/sample-business-card.png)
+
+自分の名刺を作る際は、氏名・連絡先等を自分の内容にした画像を添付してください。サンプルは表面の印刷素材であり、アンテナや部品の電気設計データではありません。画像の比率と基板寸法が異なる場合は、文字の歪みや欠けを確認して配置方法を決めます。
 
 ## 収録内容
 
