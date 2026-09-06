@@ -33,15 +33,38 @@ python3 scripts/check_order_files.py --bom BOM.csv --cpl CPL.csv --gerber Color.
 
 通常Gerberにカラー画像を添えただけでは専用データの代用にならない。古いFCTS/FCBOを新しい銅箔ZIPへ混ぜない。APIがundefined/nullでも、正しい画面の直接出力で成功する場合がある。権限不足と断定する前に対象文書と確認ダイアログを調べる。
 
-## JLCPCB設定
+## 注文画面への入力と確認
 
-- ログイン後に見積が初期化されたことがある。ファイル名・解析寸法・全設定を確認して必要なら再入稿する。
-- 通常のSilkscreen色だけでなく、Advanced Options → Silkscreen Technology → **EasyEDA multi-color silkscreen**を選ぶ。カラーGerberを上げただけで自動設定されるとは限らない。
-- この事例は白、ENIG、1 oz、0.6 mm、基板20枚・Top Side実装20枚。0.6 mmがHASL設定で無効なら対応する表面処理を選ぶ。仕様の組み合わせと価格は現在の画面を優先する。
-- 白を緑に変更する提案は、カラー印刷仕様を優先して断った。自動提案をユーザーの指定より優先しない。
-- 0.6 mmでEconomicが無効となりStandard PCBAを使用した。これを全ての将来のサービス条件へ一般化しない。
-- JLCPCB追加のEdge Rails/Fiducialsにより見積寸法が変わる。完成名刺91 × 55 mmと製造パネルを区別する。本例の画面は91 × 71 mmだが説明文に両側5 mmとあり整合しなかったため、最終パネル図で確認する。完成基板の寸法をその値へ書き換えない。
-- `Depanel boards & edge rail before delivery = Yes`で、捨て板を除去して納品する構成を選んだ。必要な加工費として見積に含める。
+ユーザーから発注準備・発注操作を依頼されたら、操作可能なブラウザで以下の入力まで実施する。リンクや入力方法を説明するだけで完了としない。ユーザーが自分で入力すると指定した場合は、その時点で操作を引き継ぐ。
+
+|画面の項目|本Skillの標準入力|確認方法|
+|---|---|---|
+|Gerber|同一リビジョンのカラーGerber ZIP|ファイル名と解析された基板寸法|
+|PCB Qty|ユーザー指定。本例20枚|数量表示が20|
+|PCB Color|White|選択状態を確認。白→緑の提案を自動承諾しない|
+|Surface Finish|ENIG|選択状態を確認|
+|PCB Thickness|**0.6mm**|選択状態を確認。入力不可なら対応する表面処理を先に選ぶ|
+|Outer Copper Weight|1 oz|選択状態を確認|
+|Advanced Options → Silkscreen Technology|**EasyEDA multi-color silkscreen**|選択状態と見積への反映を確認|
+|PCB Assembly / PCBA Type|有効化し、対応する方式。本例Standard|0.6 mmでEconomicが選択できなければStandardを使用|
+|Assembly Side / PCBA Qty|Top Side / ユーザー指定。本例20枚|基板枚数とは別に実装枚数を確認|
+|Edge Rails/Fiducials|Added by JLCPCB|製造パネルと完成基板の寸法を区別|
+|Depanel boards & edge rail before delivery|Yes|捨て板を除去した完成名刺での納品を確認|
+
+ユーザーが明示した値を優先する。上記の対応可否・追加料金は現行画面で確認する。0.6 mmを選べないからといって無断で1.6 mm等へ変えない。
+
+実際の操作順序:
+
+1. ログイン状態を確認し、最新カラーGerberをアップロードする。解析完了を待ってから、寸法と層数を確認する。処理中の設定は解析完了時に初期化される場合がある。
+2. 数量・White・ENIGを設定し、0.6mmを選択する。0.6 mmがHASL設定で無効なら表面処理の対応条件を確認する。
+3. PCB側のAdvanced Optionsを展開し、Silkscreen TechnologyでEasyEDA multi-color silkscreenを選ぶ。通常のSilkscreen欄のBlack/Whiteだけではカラー印刷指定にならない。カラーGerberだけで自動設定されるとも限らない。
+4. PCB Assemblyを有効化し、実装方式・面・枚数・捨て板除去を設定する。非同期更新が落ち着いてから、0.6 mm・カラー印刷・数量が維持されていることを確認する。フォーカス表示やクリック成功を選択済みの証拠とせず、選択状態・チェック状態・見積への反映を見る。
+5. ログインなどで画面が再読み込みされたら、アップロードと設定が保持されているか確認し、消えていれば再入力する。重複注文を作成しない。
+6. BOM/CPLの部品照合、実装プレビュー、Quote & Orderまで進め、基板代・部品代・実装代・必要な加工費を確認する。チェックアウト時は送料・税を含む総額で確認する。
+
+操作が使えない、ログイン待ち、サイトが要求仕様に対応しない等の場合は、完了した項目と未完了の項目を分け、具体的な障害を伝える。規約同意・購入・決済はその環境の実行ルールとユーザー承認に従い、入力完了と発注完了を区別する。
+
+JLCPCB追加のEdge Rails/Fiducialsにより見積寸法が変わる。本例は完成名刺91 × 55 mmに対して画面表示91 × 71 mmとなった一方、説明文に両側5 mmとあり整合しなかったため、最終パネル図で確認する。完成基板の寸法をその値へ書き換えない。
 
 ## BOM/CPLと見積
 

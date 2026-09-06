@@ -1,4 +1,4 @@
 interface:
   display_name: "NFC基板名刺"
-  short_description: "独自アンテナ付きNFC名刺の設計からカラー印刷・実装入稿までを支援"
-  default_prompt: "$kiban-meishi を使い、NFC基板名刺の設計とJLCPCB向け製造データを準備してください。"
+  short_description: "100Ω構成のNFC名刺設計とJLCPCBの0.6mm・カラー印刷入力を支援"
+  default_prompt: "$kiban-meishi を使い、100Ω構成のNFC基板名刺を設計し、JLCPCBで0.6 mm・Multicolor Silkscreen・20枚の入稿設定まで進めてください。"

@@ -10,7 +10,7 @@
 
 ## 部品交換と属性
 
-R1を62Ωから100Ωへ変更した例では、ValueだけでなくSupplier Part、Manufacturer Part、Device、Footprint、Unique ID、Channel IDとピンネットを回路図／PCBで確認した。
+R1を100Ω（C22775 / 0603WAF1000T5E）に揃える際は、ValueだけでなくSupplier Part、Manufacturer Part、Device、Footprint、Unique ID、Channel IDとピンネットを回路図／PCBで確認した。
 
 PCB取得結果の`otherProperty`に含まれるDevice/Footprintの表示名を、回路図がUUIDを要求する参照へそのままコピーしない。実際に部品ライブラリ参照が壊れた原因となった。フィールドの意味を確認し、他のプロジェクトのUUIDを持ち込まない。
 
